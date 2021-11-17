@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">GestionVuelos</string>
+    <string name="roundtrip">RoundTrip</string>
+    <string name="one_way">One way</string>
+    <string name="history">History</string>
+    <string name="depart">Depart</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="returni">Return</string>
 </resources>
