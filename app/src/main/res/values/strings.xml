@@ -7,4 +7,9 @@
     <string name="from">From</string>
     <string name="to">To</string>
     <string name="returni">Return</string>
+    <string name="passengers">passengers</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+    <string name="cero">0</string>
+    <string name="search_fligth">Search Fligth</string>
 </resources>
