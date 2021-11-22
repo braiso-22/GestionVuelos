@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "298509843201",
+    "project_id": "gestion-vuelos",
+    "storage_bucket": "gestion-vuelos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:298509843201:android:ec477dcb2b20ff53f6b900",
+        "android_client_info": {
+          "package_name": "com.example.gestionvuelos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "298509843201-800tmgvqn46i4l2idb8t6o5k2v3r33br.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcMMZqjkP7OktkJ0V1-I6NwwMvFDXLxsE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "298509843201-800tmgvqn46i4l2idb8t6o5k2v3r33br.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
