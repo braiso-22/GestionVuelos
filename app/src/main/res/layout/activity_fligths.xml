@@ -46,7 +46,8 @@
         android:text="@string/history"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/radioGroup"
-        app:layout_constraintTop_toTopOf="@+id/radioGroup" />
+        app:layout_constraintTop_toTopOf="@+id/radioGroup"
+        tools:ignore="TextContrastCheck" />
 
     <EditText
         android:id="@+id/editTextTextPersonName"
@@ -132,7 +133,7 @@
             android:layout_weight="1"
             android:backgroundTint="?attr/colorSecondary"
             app:srcCompat="@android:drawable/ic_menu_agenda"
-            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,TouchTargetSizeCheck,ImageContrastCheck" />
 
     </LinearLayout>
 
@@ -163,7 +164,7 @@
             android:layout_weight="1"
             android:backgroundTint="?attr/colorSecondary"
             app:srcCompat="@android:drawable/ic_menu_agenda"
-            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,TouchTargetSizeCheck,ImageContrastCheck" />
 
     </LinearLayout>
 
