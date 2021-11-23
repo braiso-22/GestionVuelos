@@ -18,19 +18,34 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.gestionvuelos.fragments.DatePickerFragment;
 import com.example.gestionvuelos.fragments.ListaDialogFragment;
+import com.example.gestionvuelos.fragments.ListenerDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.time.LocalDate;
 
-public class FligthsActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
+public class FligthsActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, ListenerDialogFragment {
+
+
 
     enum ProviderType {
         BASIC,
         GOOGLE
     }
-    boolean flag;
+    TextView bienvenida;
+    EditText from ;
+    EditText to ;
+    EditText numPasageros;
+    Button botonMenos ;
+    Button botonMas  ;
+    ImageButton botonCalendar1 ;
+    ImageButton botonCalendar2 ;
+    boolean flagCalendar;
+    boolean flagCiudad;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -72,14 +87,14 @@ public class FligthsActivity extends AppCompatActivity implements DatePickerDial
     }
 
     private void setup(String email, String provider) {
-        TextView bienvenida = findViewById(R.id.textoBienvenida);
-        EditText from = findViewById(R.id.textoFrom);
-        EditText to = findViewById(R.id.textoTo);
-        EditText numPasageros = findViewById(R.id.texto_passengers);
-        Button botonMenos = findViewById(R.id.boton_menos);
-        Button botonMas = findViewById(R.id.boton_mas);
-        ImageButton botonCalendar1 = findViewById(R.id.botonCalendar1);
-        ImageButton botonCalendar2 = findViewById(R.id.botonCalendar2);
+        bienvenida = findViewById(R.id.textoBienvenida);
+        from = findViewById(R.id.textoFrom);
+        to = findViewById(R.id.textoTo);
+        numPasageros = findViewById(R.id.texto_passengers);
+        botonMenos = findViewById(R.id.boton_menos);
+        botonMas = findViewById(R.id.boton_mas);
+        botonCalendar1 = findViewById(R.id.botonCalendar1);
+        botonCalendar2 = findViewById(R.id.botonCalendar2);
         bienvenida.setText(bienvenida.getText() + " " + email);
 
         from.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +102,7 @@ public class FligthsActivity extends AppCompatActivity implements DatePickerDial
             public void onClick(View view) {
                 ListaDialogFragment lista = new ListaDialogFragment();
                 lista.show(getSupportFragmentManager(),"ListDialog");
+                flagCiudad=true;
             }
         });
         to.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +110,7 @@ public class FligthsActivity extends AppCompatActivity implements DatePickerDial
             public void onClick(View view) {
                 ListaDialogFragment lista = new ListaDialogFragment();
                 lista.show(getSupportFragmentManager(),"ListDialog");
+                flagCiudad=false;
             }
         });
 
@@ -102,7 +119,7 @@ public class FligthsActivity extends AppCompatActivity implements DatePickerDial
             public void onClick(View view) {
                 DialogFragment datePicker = new DatePickerFragment();
                 datePicker.show(getSupportFragmentManager(), "selector fecha");
-                flag=true;
+                flagCalendar =true;
             }
         });
         botonCalendar2.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +127,7 @@ public class FligthsActivity extends AppCompatActivity implements DatePickerDial
             public void onClick(View view) {
                 DialogFragment datePicker = new DatePickerFragment();
                 datePicker.show(getSupportFragmentManager(), "selector fecha");
-                flag = false;
+                flagCalendar = false;
             }
         });
 
@@ -155,13 +172,31 @@ public class FligthsActivity extends AppCompatActivity implements DatePickerDial
         LocalDate f = LocalDate.of(year, month + 1, dayOfMonth);
         EditText fecha;
 
-        if(flag){
+        if(flagCalendar){
              fecha =  findViewById(R.id.editTextDate);
         }else {
             fecha = findViewById(R.id.editTextDate2);
         }
 
         fecha.setText(f.toString());
+    }
+
+    @Override
+    public void onListaDialogClick(String str) {
+        if(flagCiudad){
+            if(to.getText().toString().equals(str)){
+                Toast.makeText(this, "No pueden coincidir origen y destino", Toast.LENGTH_LONG).show();
+            }else{
+                from.setText(str);
+            }
+
+        }else{
+            if(from.getText().toString().equals(str)){
+                Toast.makeText(this, "No pueden coincidir origen y destino", Toast.LENGTH_LONG).show();
+            }else{
+                to.setText(str);
+            }
+        }
     }
 
 

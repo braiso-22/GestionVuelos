@@ -138,10 +138,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:ems="10"
-            android:hint="DD-MM-YYYY"
+            android:hint="YYYY-MM-DD"
             android:imeOptions="actionNext"
             android:inputType="date"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:focusable="false"/>
 
         <ImageButton
             android:id="@+id/botonCalendar1"
@@ -169,10 +170,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:ems="10"
-            android:hint="DD-MM-YYYY"
+            android:hint="YYYY-MM-DD"
             android:imeOptions="actionNext"
             android:inputType="date"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:focusable="false"/>
 
         <ImageButton
             android:id="@+id/botonCalendar2"

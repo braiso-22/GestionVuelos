@@ -2,6 +2,7 @@ package com.example.gestionvuelos.fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -12,6 +13,18 @@ import androidx.fragment.app.DialogFragment;
 import com.example.gestionvuelos.R;
 
 public class ListaDialogFragment extends DialogFragment {
+    ListenerDialogFragment listener;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            listener = (ListenerDialogFragment) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().toString() + " must implement NoticeDialogListener");
+        }
+    }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -25,16 +38,7 @@ public class ListaDialogFragment extends DialogFragment {
             public void onClick(DialogInterface dialogInterface, int i) {
                 CharSequence strName = adaptador.getItem(i);
                 if (i != 0) {
-                    AlertDialog.Builder builderInner = new AlertDialog.Builder(getActivity());
-                    builderInner.setMessage(strName);
-                    builderInner.setTitle("Has seleccionado:");
-                    builderInner.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    builderInner.show();
+                    listener.onListaDialogClick(strName.toString());
                 } else {
 
                 }
