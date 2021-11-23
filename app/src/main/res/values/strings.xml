@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">GestionVuelos</string>
+    <string name="prefs_file">com.example.firebasetutorial.PREFERENCE_FILE_KEY</string>
+
     <string name="roundtrip">RoundTrip</string>
     <string name="one_way">One way</string>
     <string name="history">History</string>
@@ -12,4 +14,5 @@
     <string name="plus">+</string>
     <string name="cero">0</string>
     <string name="search_fligth">Search Fligth</string>
+    <string name="welcome">Welcome,</string>
 </resources>
