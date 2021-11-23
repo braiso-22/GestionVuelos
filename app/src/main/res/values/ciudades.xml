@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ciudades">
+        <item>Selecciona un planeta: </item>
+        <item>A Coruña</item>
+        <item>Alicante</item>
+        <item>Almería</item>
+        <item>Asturias </item>
+        <item>Barcelona </item>
+        <item>Bilbao </item>
+        <item>Fuerteventura </item>
+        <item>Girona </item>
+        <item>Gran Canaria</item>
+        <item>Granada</item>
+        <item>Ibiza </item>
+        <item>Jerez </item>
+        <item>La Palma</item>
+        <item>Lanzarote</item>
+        <item>Madrid</item>
+        <item>Málaga </item>
+        <item>Menorca </item>
+        <item>Santander </item>
+        <item>Santiago de Compostela</item>
+        <item>Sevilla </item>
+        <item>Tenerife </item>
+        <item>Valencia </item>
+        <item>Zaragoza </item>
+    </string-array>
+</resources>
