@@ -17,7 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.example.gestionvuelos.FligthsActivity.ProviderType;
+import com.example.gestionvuelos.FlightsActivity.ProviderType;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void cambiarActivity(String email, @NonNull ProviderType provider) {
-        Intent homeIntent = new Intent(this, FligthsActivity.class);
+        Intent homeIntent = new Intent(this, FlightsActivity.class);
         homeIntent.putExtra("email", email);
         homeIntent.putExtra("provider", provider.name());
         startActivity(homeIntent);

@@ -5,14 +5,19 @@
     <string name="roundtrip">RoundTrip</string>
     <string name="one_way">One way</string>
     <string name="history">History</string>
-    <string name="depart">Depart</string>
-    <string name="from">From</string>
-    <string name="to">To</string>
-    <string name="returni">Return</string>
-    <string name="passengers">passengers</string>
+    <string name="depart">Depart:</string>
+    <string name="from">From:</string>
+    <string name="to">To:</string>
+    <string name="returni">Return:</string>
+    <string name="passengers">Passengers:</string>
     <string name="minus">-</string>
     <string name="plus">+</string>
     <string name="uno">1</string>
     <string name="search_fligth">Search Fligth</string>
     <string name="welcome">Welcome,</string>
+    <string name="maximum_number_of_stops">Maximum number of stops:</string>
+    <string name="nonstop">Nonstop</string>
+    <string name="one_stop">One stop</string>
+    <string name="_2_or_more">2 or more</string>
+    <string name="type">Type:</string>
 </resources>

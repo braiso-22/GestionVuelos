@@ -17,17 +17,23 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gestionvuelos.fragments.DatePickerFragment;
 import com.example.gestionvuelos.fragments.ListaDialogFragment;
 import com.example.gestionvuelos.fragments.ListenerDialogFragment;
+import com.example.gestionvuelos.fragments.SearchFlightDialogFragment;
+import com.example.gestionvuelos.vo.FlightType;
+import com.example.gestionvuelos.vo.Stops;
+import com.example.gestionvuelos.vo.Vuelo;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.time.LocalDate;
 
-public class FligthsActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, ListenerDialogFragment {
+public class FlightsActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, ListenerDialogFragment {
 
 
     enum ProviderType {
@@ -38,9 +44,15 @@ public class FligthsActivity extends AppCompatActivity implements DatePickerDial
     TextView bienvenida;
     EditText from;
     EditText to;
+    EditText depart;
+    EditText returni;
     EditText numPasageros;
+    RadioGroup stopsGroup;
+    RadioButton roundTrip;
+    RadioButton oneWay;
     Button botonMenos;
     Button botonMas;
+    Button botonSearch;
     ImageButton botonCalendar1;
     ImageButton botonCalendar2;
     boolean flagCalendar;
@@ -68,7 +80,7 @@ public class FligthsActivity extends AppCompatActivity implements DatePickerDial
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fligths);
+        setContentView(R.layout.activity_flights);
 
         //Cargar usuario y provider
 
@@ -91,8 +103,14 @@ public class FligthsActivity extends AppCompatActivity implements DatePickerDial
         from = findViewById(R.id.textoFrom);
         to = findViewById(R.id.textoTo);
         numPasageros = findViewById(R.id.texto_passengers);
+        depart = findViewById(R.id.textoDepart);
+        returni = findViewById(R.id.editTextDate2);
+        stopsGroup = findViewById(R.id.radioGroup2);
+        roundTrip = findViewById(R.id.radioRoundTrip);
+        oneWay = findViewById(R.id.radioOneWay);
         botonMenos = findViewById(R.id.boton_menos);
         botonMas = findViewById(R.id.boton_mas);
+        botonSearch = findViewById(R.id.butonSearch);
         botonCalendar1 = findViewById(R.id.botonCalendar1);
         botonCalendar2 = findViewById(R.id.botonCalendar2);
         bienvenida.setText(bienvenida.getText() + " " + email);
@@ -111,6 +129,21 @@ public class FligthsActivity extends AppCompatActivity implements DatePickerDial
                 ListaDialogFragment lista = new ListaDialogFragment();
                 lista.show(getSupportFragmentManager(), "ListDialog");
                 flagCiudad = false;
+            }
+        });
+
+        oneWay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                disableView(botonCalendar2);
+                disableView(returni);
+            }
+        });
+        roundTrip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                enableView(botonCalendar2);
+                enableView(returni);
             }
         });
 
@@ -157,6 +190,28 @@ public class FligthsActivity extends AppCompatActivity implements DatePickerDial
                 numPasageros.setText(String.valueOf(numero));
             }
         });
+        botonSearch.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onClick(View view) {
+                int radioButtonID = stopsGroup.getCheckedRadioButtonId();
+                RadioButton radioButton = stopsGroup.findViewById(radioButtonID);
+                int idx = stopsGroup.indexOfChild(radioButton);
+
+
+                Stops[] stopsArray= {Stops.NONSTOP,Stops.ONESTOP, Stops.TWOORMORE};
+                SearchFlightDialogFragment dialog;
+                if ( seleccionable() && roundTrip.isChecked()) {//
+                    dialog = new SearchFlightDialogFragment(new Vuelo(FlightType.ROUNDTRIP,from.getText().toString(), to.getText().toString(),depart.getText().toString(),returni.getText().toString(),numPasageros.getText().toString(),stopsArray[idx] ));
+                    dialog.show(getSupportFragmentManager(), "PersonalizedDialog");
+                }else if(seleccionable() && oneWay.isChecked()){
+                    dialog = new SearchFlightDialogFragment(new Vuelo(FlightType.ROUNDTRIP,from.getText().toString(), to.getText().toString(),depart.getText().toString(),numPasageros.getText().toString(),stopsArray[idx] ));
+                    dialog.show(getSupportFragmentManager(), "PersonalizedDialog");
+                }else{
+                    crearToast("No se han rellenado todos los campos");
+                }
+            }
+        });
     }
 
     private void signOut() {
@@ -171,17 +226,20 @@ public class FligthsActivity extends AppCompatActivity implements DatePickerDial
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         LocalDate f = LocalDate.of(year, month + 1, dayOfMonth);
-        EditText depart = findViewById(R.id.editTextDate);
+        EditText depart = findViewById(R.id.textoDepart);
         EditText returning = findViewById(R.id.editTextDate2);
         LocalDate f1 = null, f2 = null;
 
         try {
             f1 = LocalDate.parse(depart.getText().toString());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        try {
             f2 = LocalDate.parse(returning.getText().toString());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
         /*
         Comprobaciones de fechas
         * */
@@ -229,8 +287,30 @@ public class FligthsActivity extends AppCompatActivity implements DatePickerDial
         }
     }
 
+    public void disableView(View v) {
+        v.setEnabled(false);
+    }
+
+    public void enableView(View v) {
+        v.setEnabled(true);
+    }
+
     public void crearToast(String texto) {
         Toast.makeText(this, texto, Toast.LENGTH_SHORT).show();
+    }
+
+    public boolean seleccionable() {
+        boolean result;
+        if (roundTrip.isSelected()) {
+            result = isFiled(from) && isFiled(to) && isFiled(depart) && isFiled(returni);
+        } else {
+            result = isFiled(from) && isFiled(to) && isFiled(depart);
+        }
+        return result;
+    }
+
+    private boolean isFiled(EditText ed) {
+        return !ed.getText().toString().equals("");
     }
 
 

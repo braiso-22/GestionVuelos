@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import com.example.gestionvuelos.FligthsActivity.ProviderType;
+import com.example.gestionvuelos.FlightsActivity.ProviderType;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         String provider = prefs.getString("provider", null);
 
         if (email != null && provider != null) {
-            cambioActivity(email, ProviderType.valueOf(provider),FligthsActivity.class);
+            cambioActivity(email, ProviderType.valueOf(provider), FlightsActivity.class);
         }else{
             cambioActivity("", ProviderType.valueOf("BASIC"),LoginActivity.class);
         }

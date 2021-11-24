@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FligthsActivity">
+    tools:context=".FlightsActivity">
 
     <TextView
         android:id="@+id/textoBienvenida"
@@ -32,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textoBienvenida">
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/radioRoundTrip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -41,7 +41,7 @@
             android:textSize="16sp" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/radioOneWay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -133,7 +133,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2">
 
         <EditText
-            android:id="@+id/editTextDate"
+            android:id="@+id/textoDepart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="4"
@@ -240,7 +240,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Maximum number of stops"
+        android:text="@string/maximum_number_of_stops"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
         app:layout_constraintStart_toStartOf="@+id/linearLayout3"
@@ -256,34 +256,34 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5">
 
         <RadioButton
-            android:id="@+id/radioButton5"
+            android:id="@+id/radioNonStop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:checked="true"
-            android:text="Nonstop"
+            android:text="@string/nonstop"
             android:textSize="16sp" />
 
         <RadioButton
-            android:id="@+id/radioButton4"
+            android:id="@+id/radioOneStop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
 
-            android:text="One stop"
+            android:text="@string/one_stop"
             android:textSize="16sp" />
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/radio2OrMore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="2 or more"
+            android:text="@string/_2_or_more"
             android:textSize="16sp" />
     </RadioGroup>
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/butonSearch"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"

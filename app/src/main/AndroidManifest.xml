@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GestionVuelos" >
         <activity
-            android:name=".FligthsActivity"
+            android:name=".FlightsActivity"
             android:exported="true" />
         <activity
             android:name=".LoginActivity"
