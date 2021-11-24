@@ -12,7 +12,7 @@
     <string name="passengers">passengers</string>
     <string name="minus">-</string>
     <string name="plus">+</string>
-    <string name="cero">0</string>
+    <string name="uno">1</string>
     <string name="search_fligth">Search Fligth</string>
     <string name="welcome">Welcome,</string>
 </resources>

@@ -209,13 +209,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
+            android:focusable="false"
             android:imeOptions="actionDone"
             android:inputType="number"
             android:minHeight="48dp"
-            android:text="0"
-            android:textAlignment="center"
-            android:focusable="false"
-            />
+            android:text="@string/uno"
+            android:textAlignment="center" />
 
         <Button
             android:id="@+id/boton_mas"

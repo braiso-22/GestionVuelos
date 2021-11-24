@@ -30,19 +30,19 @@ import java.time.LocalDate;
 public class FligthsActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, ListenerDialogFragment {
 
 
-
     enum ProviderType {
         BASIC,
         GOOGLE
     }
+
     TextView bienvenida;
-    EditText from ;
-    EditText to ;
+    EditText from;
+    EditText to;
     EditText numPasageros;
-    Button botonMenos ;
-    Button botonMas  ;
-    ImageButton botonCalendar1 ;
-    ImageButton botonCalendar2 ;
+    Button botonMenos;
+    Button botonMas;
+    ImageButton botonCalendar1;
+    ImageButton botonCalendar2;
     boolean flagCalendar;
     boolean flagCiudad;
 
@@ -101,16 +101,16 @@ public class FligthsActivity extends AppCompatActivity implements DatePickerDial
             @Override
             public void onClick(View view) {
                 ListaDialogFragment lista = new ListaDialogFragment();
-                lista.show(getSupportFragmentManager(),"ListDialog");
-                flagCiudad=true;
+                lista.show(getSupportFragmentManager(), "ListDialog");
+                flagCiudad = true;
             }
         });
         to.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ListaDialogFragment lista = new ListaDialogFragment();
-                lista.show(getSupportFragmentManager(),"ListDialog");
-                flagCiudad=false;
+                lista.show(getSupportFragmentManager(), "ListDialog");
+                flagCiudad = false;
             }
         });
 
@@ -119,7 +119,7 @@ public class FligthsActivity extends AppCompatActivity implements DatePickerDial
             public void onClick(View view) {
                 DialogFragment datePicker = new DatePickerFragment();
                 datePicker.show(getSupportFragmentManager(), "selector fecha");
-                flagCalendar =true;
+                flagCalendar = true;
             }
         });
         botonCalendar2.setOnClickListener(new View.OnClickListener() {
@@ -138,8 +138,8 @@ public class FligthsActivity extends AppCompatActivity implements DatePickerDial
                 if (numero >= 1) {
                     numero--;
                 }
-                if(numero==0){
-                    numero=19;
+                if (numero == 0) {
+                    numero = 19;
                 }
                 numPasageros.setText(String.valueOf(numero));
             }
@@ -151,8 +151,8 @@ public class FligthsActivity extends AppCompatActivity implements DatePickerDial
                 if (numero <= 18) {
                     numero++;
                 }
-                if(numero==19){
-                    numero=1;
+                if (numero == 19) {
+                    numero = 1;
                 }
                 numPasageros.setText(String.valueOf(numero));
             }
@@ -166,37 +166,71 @@ public class FligthsActivity extends AppCompatActivity implements DatePickerDial
         FirebaseAuth.getInstance().signOut();
         onBackPressed();
     }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         LocalDate f = LocalDate.of(year, month + 1, dayOfMonth);
-        EditText fecha;
+        EditText depart = findViewById(R.id.editTextDate);
+        EditText returning = findViewById(R.id.editTextDate2);
+        LocalDate f1 = null, f2 = null;
 
-        if(flagCalendar){
-             fecha =  findViewById(R.id.editTextDate);
-        }else {
-            fecha = findViewById(R.id.editTextDate2);
+        try {
+            f1 = LocalDate.parse(depart.getText().toString());
+            f2 = LocalDate.parse(returning.getText().toString());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
 
-        fecha.setText(f.toString());
+        /*
+        Comprobaciones de fechas
+        * */
+        if (!f.isBefore(LocalDate.now())) {
+            try {
+                if (flagCalendar) {
+                    if (f2 == null || f.isBefore(f2)) {
+                        depart.setText(f.toString());
+                    } else {
+                        crearToast("La salida no puede ser después del regreso");
+                    }
+
+                } else {
+                    if (f1 == null || !f.isBefore(f1)) {
+                        returning.setText(f.toString());
+                    } else {
+                        crearToast("El regreso no puede ser antes de la salida");
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+        } else {
+            crearToast("Las fechas no pueden ser anteriores al día de hoy");
+        }
+
     }
 
     @Override
     public void onListaDialogClick(String str) {
-        if(flagCiudad){
-            if(to.getText().toString().equals(str)){
-                Toast.makeText(this, "No pueden coincidir origen y destino", Toast.LENGTH_LONG).show();
-            }else{
+        if (flagCiudad) {
+            if (to.getText().toString().equals(str)) {
+                crearToast("No pueden coincidir origen y destino");
+            } else {
                 from.setText(str);
             }
 
-        }else{
-            if(from.getText().toString().equals(str)){
-                Toast.makeText(this, "No pueden coincidir origen y destino", Toast.LENGTH_LONG).show();
-            }else{
+        } else {
+            if (from.getText().toString().equals(str)) {
+                crearToast("No pueden coincidir origen y destino");
+            } else {
                 to.setText(str);
             }
         }
+    }
+
+    public void crearToast(String texto) {
+        Toast.makeText(this, texto, Toast.LENGTH_SHORT).show();
     }
 
 
