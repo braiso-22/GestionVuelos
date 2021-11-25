@@ -30,6 +30,7 @@ import com.example.gestionvuelos.vo.FlightType;
 import com.example.gestionvuelos.vo.Stops;
 import com.example.gestionvuelos.vo.Vuelo;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.time.LocalDate;
 
@@ -58,6 +59,8 @@ public class FlightsActivity extends AppCompatActivity implements DatePickerDial
     boolean flagCalendar;
     boolean flagCiudad;
 
+    FirebaseFirestore db;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -81,6 +84,9 @@ public class FlightsActivity extends AppCompatActivity implements DatePickerDial
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flights);
+
+        //Instanciación de la DB
+        db = FirebaseFirestore.getInstance();
 
         //Cargar usuario y provider
 
@@ -199,13 +205,13 @@ public class FlightsActivity extends AppCompatActivity implements DatePickerDial
                 int idx = stopsGroup.indexOfChild(radioButton);
 
 
-                Stops[] stopsArray= {Stops.NONSTOP,Stops.ONESTOP, Stops.TWOORMORE};
+
                 SearchFlightDialogFragment dialog;
                 if ( seleccionable() && roundTrip.isChecked()) {//
-                    dialog = new SearchFlightDialogFragment(new Vuelo(FlightType.ROUNDTRIP,from.getText().toString(), to.getText().toString(),depart.getText().toString(),returni.getText().toString(),numPasageros.getText().toString(),stopsArray[idx] ));
+                    dialog = new SearchFlightDialogFragment(crearVueloRound(idx),email,db);
                     dialog.show(getSupportFragmentManager(), "PersonalizedDialog");
                 }else if(seleccionable() && oneWay.isChecked()){
-                    dialog = new SearchFlightDialogFragment(new Vuelo(FlightType.ROUNDTRIP,from.getText().toString(), to.getText().toString(),depart.getText().toString(),numPasageros.getText().toString(),stopsArray[idx] ));
+                    dialog = new SearchFlightDialogFragment(crearVueloOneWay(idx),email,db);
                     dialog.show(getSupportFragmentManager(), "PersonalizedDialog");
                 }else{
                     crearToast("No se han rellenado todos los campos");
@@ -246,7 +252,7 @@ public class FlightsActivity extends AppCompatActivity implements DatePickerDial
         if (!f.isBefore(LocalDate.now())) {
             try {
                 if (flagCalendar) {
-                    if (f2 == null || f.isBefore(f2)) {
+                    if (f2 == null || !f.isAfter(f2)) {
                         depart.setText(f.toString());
                     } else {
                         crearToast("La salida no puede ser después del regreso");
@@ -307,6 +313,17 @@ public class FlightsActivity extends AppCompatActivity implements DatePickerDial
             result = isFiled(from) && isFiled(to) && isFiled(depart);
         }
         return result;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public Vuelo crearVueloRound(int idx){
+        Stops[] stopsArray= {Stops.NONSTOP,Stops.ONESTOP, Stops.TWOORMORE};
+        return new Vuelo(FlightType.ROUNDTRIP,from.getText().toString(), to.getText().toString(),depart.getText().toString(),returni.getText().toString(),numPasageros.getText().toString(),stopsArray[idx] );
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public Vuelo crearVueloOneWay(int idx){
+        Stops[] stopsArray= {Stops.NONSTOP,Stops.ONESTOP, Stops.TWOORMORE};
+        return new Vuelo(FlightType.ROUNDTRIP,from.getText().toString(), to.getText().toString(),depart.getText().toString(),numPasageros.getText().toString(),stopsArray[idx] );
     }
 
     private boolean isFiled(EditText ed) {
