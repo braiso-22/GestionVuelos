@@ -6,6 +6,7 @@ import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -51,6 +52,7 @@ public class FlightsActivity extends AppCompatActivity implements DatePickerDial
     RadioGroup stopsGroup;
     RadioButton roundTrip;
     RadioButton oneWay;
+    Button historial;
     Button botonMenos;
     Button botonMas;
     Button botonSearch;
@@ -167,6 +169,14 @@ public class FlightsActivity extends AppCompatActivity implements DatePickerDial
                 DialogFragment datePicker = new DatePickerFragment();
                 datePicker.show(getSupportFragmentManager(), "selector fecha");
                 flagCalendar = false;
+            }
+        });
+        historial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent cambio = new Intent(FlightsActivity.this,Historial.class);
+
+                startActivity(cambio);
             }
         });
 
