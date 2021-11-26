@@ -10,8 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.fragment.app.DialogFragment;
 
+import com.example.gestionvuelos.LoginActivity;
 import com.example.gestionvuelos.R;
 
 import com.example.gestionvuelos.vo.Vuelo;
@@ -29,6 +31,7 @@ public class SearchFlightDialogFragment extends DialogFragment {
     FirebaseFirestore db;
     TextView type, from, to, depart, returni, passengers, maxStops;
     long numVuelo;
+
     public SearchFlightDialogFragment(Vuelo v, String email, FirebaseFirestore db) {
         super();
         this.vuelo = v;
@@ -63,37 +66,39 @@ public class SearchFlightDialogFragment extends DialogFragment {
                 db.collection("vuelos").document(email).collection("numVuelos").document("num").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        try{
+                        try {
                             numVuelo = documentSnapshot.getLong("num");
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             System.out.println(e.getMessage());
-                            numVuelo=0;
+                            numVuelo = 0;
                         }
 
                         Log.i("mensaje1", String.valueOf(numVuelo));
                         Map<String, Object> vueloNumMap = new HashMap<>();
-                        numVuelo=numVuelo+1l;
-                        vueloNumMap.put("num",numVuelo);
+                        numVuelo = numVuelo + 1l;
+                        vueloNumMap.put("num", numVuelo);
                         db.collection("vuelos").document(email).collection("numVuelos").document("num").set(vueloNumMap);
 
                         Map<String, Object> vueloMap = new HashMap<>();
                         vueloMap.put("type", vuelo.getTipo().toString());
                         vueloMap.put("from", vuelo.getFrom());
                         vueloMap.put("to", vuelo.getTo());
-                        vueloMap.put("depart",vuelo.getDepart().toString());
-                        vueloMap.put("return",vuelo.getReturno().toString());
-                        vueloMap.put("passengers",String.valueOf(vuelo.getPassengers()));
-                        vueloMap.put("stops",vuelo.getParadas().toString());
+                        vueloMap.put("depart", vuelo.getDepart().toString());
+                        try {
+                            vueloMap.put("return", vuelo.getReturno().toString());
+                        } catch (Exception e) {
+                            Log.i("Vuelo de ida","error");
+                        }
+                        vueloMap.put("passengers", String.valueOf(vuelo.getPassengers()));
+                        vueloMap.put("stops", vuelo.getParadas().toString());
 
-                        String vueloNum = "vuelo"+numVuelo;
+                        String vueloNum = "vuelo" + numVuelo;
                         Log.i("menjsaje2", String.valueOf(numVuelo));
                         db.collection("vuelos").document(email)
                                 .collection("vuelos")
                                 .document(vueloNum).set(vueloMap);
                     }
                 });
-
-
 
 
             }

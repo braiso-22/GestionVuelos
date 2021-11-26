@@ -119,6 +119,7 @@ public class FlightsActivity extends AppCompatActivity implements DatePickerDial
         botonMenos = findViewById(R.id.boton_menos);
         botonMas = findViewById(R.id.boton_mas);
         botonSearch = findViewById(R.id.butonSearch);
+        historial= findViewById(R.id.botonHistorial);
         botonCalendar1 = findViewById(R.id.botonCalendar1);
         botonCalendar2 = findViewById(R.id.botonCalendar2);
         bienvenida.setText(bienvenida.getText() + " " + email);
@@ -175,7 +176,7 @@ public class FlightsActivity extends AppCompatActivity implements DatePickerDial
             @Override
             public void onClick(View view) {
                 Intent cambio = new Intent(FlightsActivity.this,Historial.class);
-
+                cambio.putExtra("email",email);
                 startActivity(cambio);
             }
         });

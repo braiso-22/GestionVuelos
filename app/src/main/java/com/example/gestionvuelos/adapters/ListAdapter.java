@@ -1,6 +1,7 @@
 package com.example.gestionvuelos.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +11,14 @@ import android.widget.TextView;
 import com.example.gestionvuelos.R;
 import com.example.gestionvuelos.vo.Vuelo;
 
+import java.util.ArrayList;
+
 public class ListAdapter extends BaseAdapter {
     Context context;
-    private final Vuelo[] vuelos;
+    private final ArrayList<Vuelo> vuelos;
 
 
-    public ListAdapter(Context context, Vuelo[] vuelos) {
+    public ListAdapter(Context context, ArrayList<Vuelo> vuelos) {
         //super(context,R.layout.single_list_app_item, utilsArrayList);
         this.context = context;
         this.vuelos = vuelos;
@@ -23,7 +26,7 @@ public class ListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return vuelos.length;
+        return vuelos.size();
     }
 
     @Override
@@ -58,13 +61,17 @@ public class ListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
             result = convertView;
         }
-        viewHolder.type.setText(vuelos[position].getTipo().toString());
-        viewHolder.from.setText(vuelos[position].getFrom());
-        viewHolder.to.setText(vuelos[position].getTo());
-        viewHolder.depart.setText(vuelos[position].getDepart().toString());
-        viewHolder.returno.setText(vuelos[position].getReturno().toString());
-        viewHolder.passengers.setText(String.valueOf(vuelos[position].getPassengers()));
-        viewHolder.stops.setText(vuelos[position].getParadas().toString());
+        viewHolder.type.setText(vuelos.get(position).getTipo().toString());
+        viewHolder.from.setText(vuelos.get(position).getFrom());
+        viewHolder.to.setText(vuelos.get(position).getTo());
+        viewHolder.depart.setText(vuelos.get(position).getDepart().toString());
+        try {
+            viewHolder.returno.setText(vuelos.get(position).getReturno().toString());
+        } catch (Exception e) {
+            Log.i("log tag", "sin vuelta");
+        }
+        viewHolder.passengers.setText(String.valueOf(vuelos.get(position).getPassengers()));
+        viewHolder.stops.setText(vuelos.get(position).getParadas().toString());
 
         return result;
     }

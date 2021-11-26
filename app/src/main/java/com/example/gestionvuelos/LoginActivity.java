@@ -31,15 +31,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 public class LoginActivity extends AppCompatActivity {
-    private FirebaseAuth mAuth;
-    GoogleSignInClient googleClient;
-    private int GOOGLE_SIGN_IN = 100;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        mAuth = FirebaseAuth.getInstance();
+
 
         setup();
     }
@@ -112,28 +110,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
         botonGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GoogleSignInOptions gso = new GoogleSignInOptions
-                        .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                        .requestIdToken(getString(R.string.key))
-                        .requestEmail()
-                        .build();
-
-                googleClient = GoogleSignIn.getClient(LoginActivity.this, gso);
-                Log.i("codigo", String.valueOf(gso.isIdTokenRequested()));
-                //signIn();
-                Toast.makeText(LoginActivity.this,"OPCION DESHABILITADA",Toast.LENGTH_SHORT).show();
 
             }
         });
     }
 
-    private void signIn() {
-        startActivityForResult(googleClient.getSignInIntent(), GOOGLE_SIGN_IN);
-    }
 
     private void showAlert(String mensaje) {
         AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
@@ -150,52 +134,4 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(homeIntent);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
-        if (requestCode == GOOGLE_SIGN_IN) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
-        }
-    }
-
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            if (account != null) {
-                AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-                FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Log.d("TAG3","signWithCreadentiaSuccess");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            cambiarActivity(user.getEmail(), ProviderType.GOOGLE);
-
-
-                        }else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("tag22", "signInWithCredential:failure", task.getException());
-                        }
-                    }
-                });
-
-
-
-            }
-
-            // Signed in successfully, show authenticated UI.
-
-        } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            System.out.println(e.getMessage());
-            Log.i("TAG2", "signInResult:failed code=" + e.getStatusCode());
-
-        }
-    }
 }
