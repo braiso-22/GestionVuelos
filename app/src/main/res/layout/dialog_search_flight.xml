@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textType"
+        android:id="@+id/textoType"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -19,19 +19,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textFrom2"
+        android:id="@+id/textoFrom2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/from"
-        app:layout_constraintEnd_toStartOf="@+id/textTo2"
+        app:layout_constraintEnd_toStartOf="@+id/textoTo2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textType" />
+        app:layout_constraintTop_toBottomOf="@+id/textoType" />
 
     <TextView
-        android:id="@+id/textTo2"
+        android:id="@+id/textoTo2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -39,34 +39,34 @@
         android:layout_marginEnd="16dp"
         android:text="@string/to"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textFrom2"
-        app:layout_constraintTop_toBottomOf="@+id/textType" />
+        app:layout_constraintStart_toEndOf="@+id/textoFrom2"
+        app:layout_constraintTop_toBottomOf="@+id/textoType" />
 
     <TextView
-        android:id="@+id/textDepart2"
+        android:id="@+id/textoDepart2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/depart"
-        app:layout_constraintEnd_toStartOf="@+id/textReturn2"
+        app:layout_constraintEnd_toStartOf="@+id/textoReturn2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textFrom2" />
+        app:layout_constraintTop_toBottomOf="@+id/textoFrom2" />
 
     <TextView
-        android:id="@+id/textReturn2"
+        android:id="@+id/textoReturn2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/returni"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textDepart2"
-        app:layout_constraintTop_toTopOf="@+id/textDepart2" />
+        app:layout_constraintStart_toEndOf="@+id/textoDepart2"
+        app:layout_constraintTop_toTopOf="@+id/textoDepart2" />
 
     <TextView
-        android:id="@+id/textPassengers2"
+        android:id="@+id/textoPassengers2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -75,10 +75,10 @@
         android:text="@string/passengers"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textDepart2" />
+        app:layout_constraintTop_toBottomOf="@+id/textoDepart2" />
 
     <TextView
-        android:id="@+id/textMaxStops2"
+        android:id="@+id/textoStops2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -87,5 +87,5 @@
         android:text="@string/maximum_number_of_stops"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textPassengers2" />
+        app:layout_constraintTop_toBottomOf="@+id/textoPassengers2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

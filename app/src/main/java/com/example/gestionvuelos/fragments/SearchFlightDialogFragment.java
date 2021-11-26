@@ -43,13 +43,13 @@ public class SearchFlightDialogFragment extends DialogFragment {
         LayoutInflater li = (LayoutInflater) getActivity().getSystemService(infService);
 
         inflado = li.inflate(R.layout.dialog_search_flight, null);
-        type = inflado.findViewById(R.id.textType);
-        from = inflado.findViewById(R.id.textFrom2);
-        to = inflado.findViewById(R.id.textTo2);
-        depart = inflado.findViewById(R.id.textDepart2);
-        returni = inflado.findViewById(R.id.textReturn2);
-        passengers = inflado.findViewById(R.id.textPassengers2);
-        maxStops = inflado.findViewById(R.id.textMaxStops2);
+        type = inflado.findViewById(R.id.textoType);
+        from = inflado.findViewById(R.id.textoFrom2);
+        to = inflado.findViewById(R.id.textoTo2);
+        depart = inflado.findViewById(R.id.textoDepart2);
+        returni = inflado.findViewById(R.id.textoReturn2);
+        passengers = inflado.findViewById(R.id.textoPassengers2);
+        maxStops = inflado.findViewById(R.id.textoStops2);
         llenarTexts();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -58,8 +58,6 @@ public class SearchFlightDialogFragment extends DialogFragment {
         builder.setView(inflado);
 
         builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
-
-
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 db.collection("vuelos").document(email).collection("numVuelos").document("num").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
