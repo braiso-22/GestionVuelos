@@ -43,7 +43,6 @@ public class ListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         final View result;
-        if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(R.layout.dialog_search_flight, parent, false);
@@ -57,21 +56,18 @@ public class ListAdapter extends BaseAdapter {
 
             result = convertView;
             convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-            result = convertView;
-        }
-        viewHolder.type.setText(vuelos.get(position).getTipo().toString());
-        viewHolder.from.setText(vuelos.get(position).getFrom());
-        viewHolder.to.setText(vuelos.get(position).getTo());
-        viewHolder.depart.setText(vuelos.get(position).getDepart().toString());
+
+        viewHolder.type.setText(viewHolder.type.getText()+" "+vuelos.get(position).getTipo().toString());
+        viewHolder.from.setText(viewHolder.from.getText()+" "+vuelos.get(position).getFrom());
+        viewHolder.to.setText(viewHolder.to.getText()+" "+ vuelos.get(position).getTo());
+        viewHolder.depart.setText(viewHolder.depart.getText()+" "+vuelos.get(position).getDepart().toString());
         try {
-            viewHolder.returno.setText(vuelos.get(position).getReturno().toString());
+            viewHolder.returno.setText(viewHolder.returno.getText()+" "+vuelos.get(position).getReturno().toString());
         } catch (Exception e) {
             Log.i("log tag", "sin vuelta");
         }
-        viewHolder.passengers.setText(String.valueOf(vuelos.get(position).getPassengers()));
-        viewHolder.stops.setText(vuelos.get(position).getParadas().toString());
+        viewHolder.passengers.setText(viewHolder.passengers.getText()+" "+String.valueOf(vuelos.get(position).getPassengers()));
+        viewHolder.stops.setText(viewHolder.stops.getText()+" "+vuelos.get(position).getParadas().toString());
 
         return result;
     }

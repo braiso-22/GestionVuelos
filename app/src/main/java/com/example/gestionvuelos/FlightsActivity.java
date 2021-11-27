@@ -52,6 +52,7 @@ public class FlightsActivity extends AppCompatActivity implements DatePickerDial
     RadioGroup stopsGroup;
     RadioButton roundTrip;
     RadioButton oneWay;
+    RadioButton nonStop;
     Button historial;
     Button botonMenos;
     Button botonMas;
@@ -116,10 +117,11 @@ public class FlightsActivity extends AppCompatActivity implements DatePickerDial
         stopsGroup = findViewById(R.id.radioGroup2);
         roundTrip = findViewById(R.id.radioRoundTrip);
         oneWay = findViewById(R.id.radioOneWay);
+        nonStop = findViewById(R.id.radioNonStop);
         botonMenos = findViewById(R.id.boton_menos);
         botonMas = findViewById(R.id.boton_mas);
         botonSearch = findViewById(R.id.butonSearch);
-        historial= findViewById(R.id.botonHistorial);
+        historial = findViewById(R.id.botonHistorial);
         botonCalendar1 = findViewById(R.id.botonCalendar1);
         botonCalendar2 = findViewById(R.id.botonCalendar2);
         bienvenida.setText(bienvenida.getText() + " " + email);
@@ -175,8 +177,8 @@ public class FlightsActivity extends AppCompatActivity implements DatePickerDial
         historial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent cambio = new Intent(FlightsActivity.this,Historial.class);
-                cambio.putExtra("email",email);
+                Intent cambio = new Intent(FlightsActivity.this, Historial.class);
+                cambio.putExtra("email", email);
                 startActivity(cambio);
             }
         });
@@ -216,16 +218,19 @@ public class FlightsActivity extends AppCompatActivity implements DatePickerDial
                 int idx = stopsGroup.indexOfChild(radioButton);
 
 
-
                 SearchFlightDialogFragment dialog;
-                if ( seleccionable() && roundTrip.isChecked()) {//
-                    dialog = new SearchFlightDialogFragment(crearVueloRound(idx),email,db);
-                    dialog.show(getSupportFragmentManager(), "PersonalizedDialog");
-                }else if(seleccionable() && oneWay.isChecked()){
-                    dialog = new SearchFlightDialogFragment(crearVueloOneWay(idx),email,db);
-                    dialog.show(getSupportFragmentManager(), "PersonalizedDialog");
-                }else{
-                    crearToast("No se han rellenado todos los campos");
+                if (seleccionable()) {
+
+                    if (roundTrip.isChecked()) {//
+                        dialog = new SearchFlightDialogFragment(crearVueloRound(idx), email, db);
+                        dialog.show(getSupportFragmentManager(), "PersonalizedDialog");
+                    } else {
+                        dialog = new SearchFlightDialogFragment(crearVueloOneWay(idx), email, db);
+                        dialog.show(getSupportFragmentManager(), "PersonalizedDialog");
+                    }
+                    clearAll();
+                } else {
+                    crearToast(getString(R.string.all_fields));
                 }
             }
         });
@@ -266,14 +271,14 @@ public class FlightsActivity extends AppCompatActivity implements DatePickerDial
                     if (f2 == null || !f.isAfter(f2)) {
                         depart.setText(f.toString());
                     } else {
-                        crearToast("La salida no puede ser después del regreso");
+                        crearToast(getString(R.string.leave));
                     }
 
                 } else {
                     if (f1 == null || !f.isBefore(f1)) {
                         returning.setText(f.toString());
                     } else {
-                        crearToast("El regreso no puede ser antes de la salida");
+                        crearToast(getString(R.string.come));
                     }
                 }
             } catch (Exception e) {
@@ -281,7 +286,7 @@ public class FlightsActivity extends AppCompatActivity implements DatePickerDial
             }
 
         } else {
-            crearToast("Las fechas no pueden ser anteriores al día de hoy");
+            crearToast(getString(R.string.dates_after_today));
         }
 
     }
@@ -327,19 +332,29 @@ public class FlightsActivity extends AppCompatActivity implements DatePickerDial
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public Vuelo crearVueloRound(int idx){
-        Stops[] stopsArray= {Stops.NONSTOP,Stops.ONESTOP, Stops.TWOORMORE};
-        return new Vuelo(FlightType.ROUNDTRIP,from.getText().toString(), to.getText().toString(),depart.getText().toString(),returni.getText().toString(),numPasageros.getText().toString(),stopsArray[idx] );
+    public Vuelo crearVueloRound(int idx) {
+        Stops[] stopsArray = {Stops.NONSTOP, Stops.ONESTOP, Stops.TWOORMORE};
+        return new Vuelo(FlightType.ROUNDTRIP, from.getText().toString(), to.getText().toString(), depart.getText().toString(), returni.getText().toString(), numPasageros.getText().toString(), stopsArray[idx]);
     }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public Vuelo crearVueloOneWay(int idx){
-        Stops[] stopsArray= {Stops.NONSTOP,Stops.ONESTOP, Stops.TWOORMORE};
-        return new Vuelo(FlightType.ROUNDTRIP,from.getText().toString(), to.getText().toString(),depart.getText().toString(),numPasageros.getText().toString(),stopsArray[idx] );
+    public Vuelo crearVueloOneWay(int idx) {
+        Stops[] stopsArray = {Stops.NONSTOP, Stops.ONESTOP, Stops.TWOORMORE};
+        return new Vuelo(FlightType.ROUNDTRIP, from.getText().toString(), to.getText().toString(), depart.getText().toString(), numPasageros.getText().toString(), stopsArray[idx]);
     }
 
     private boolean isFiled(EditText ed) {
         return !ed.getText().toString().equals("");
     }
 
+    public void clearAll() {
+        roundTrip.setChecked(true);
+        from.setText("");
+        to.setText("");
+        depart.setText("");
+        returni.setText("");
+        numPasageros.setText("1");
+        nonStop.setChecked(true);
+    }
 
 }

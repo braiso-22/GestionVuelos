@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="ciudades">
-        <item>Selecciona un planeta: </item>
+        <item></item>
         <item>A Coruña</item>
         <item>Alicante</item>
         <item>Almería</item>

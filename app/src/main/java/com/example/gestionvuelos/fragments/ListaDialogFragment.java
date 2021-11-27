@@ -30,7 +30,7 @@ public class ListaDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setIcon(R.mipmap.ic_launcher_round);
-        builder.setTitle("Lista. Elige una ciudad");
+        builder.setTitle(R.string.select_city);
 
         ArrayAdapter<CharSequence> adaptador = ArrayAdapter.createFromResource(getActivity(), R.array.ciudades, android.R.layout.simple_list_item_1);
         builder.setAdapter(adaptador, new DialogInterface.OnClickListener() {

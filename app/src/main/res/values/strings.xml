@@ -21,4 +21,16 @@
     <string name="_2_or_more">2 or more</string>
     <string name="type">Type:</string>
     <string name="key">348724132232-jrgrgro3tjc7eqc9p4n1e3po5f9afak1.apps.googleusercontent.com</string>
+    <string name="your_flights">YOUR FLIGHTS:</string>
+    <string name="back">Back</string>
+    <string name="select_city">Select a City:</string>
+    <string name="no_saved">Flight has not been booked</string>
+    <string name="saved">Flight saved on history</string>
+    <string name="book">Do you want to book this flight?</string>
+    <string name="all_fields">All fields need to be covered</string>
+    <string name="dates_after_today">You can\'t get a flight before today</string>
+    <string name="come">You can\'t come before you go</string>
+    <string name="leave">you can\'t leave after coming</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

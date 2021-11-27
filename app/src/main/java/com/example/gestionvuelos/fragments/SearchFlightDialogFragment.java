@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.DialogFragment;
 
+import com.example.gestionvuelos.FlightsActivity;
 import com.example.gestionvuelos.LoginActivity;
 import com.example.gestionvuelos.R;
 
@@ -57,10 +58,10 @@ public class SearchFlightDialogFragment extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setIcon(R.mipmap.ic_launcher_round);
-        builder.setTitle("Quieres guardar este vuelo?");
+        builder.setTitle(getString(R.string.book));
         builder.setView(inflado);
 
-        builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 db.collection("vuelos").document(email).collection("numVuelos").document("num").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -100,13 +101,13 @@ public class SearchFlightDialogFragment extends DialogFragment {
                     }
                 });
 
-
+                crearToast(getString(R.string.saved));
             }
         });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                crearToast("No se ha guardado el vuelo");
+                crearToast(getString(R.string.no_saved));
             }
 
         });
