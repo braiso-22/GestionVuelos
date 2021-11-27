@@ -347,7 +347,7 @@ public class FlightsActivity extends AppCompatActivity implements DatePickerDial
         return !ed.getText().toString().equals("");
     }
 
-    public void clearAll() {
+    private void clearAll() {
         roundTrip.setChecked(true);
         from.setText("");
         to.setText("");

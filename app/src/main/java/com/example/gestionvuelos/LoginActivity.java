@@ -31,7 +31,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 public class LoginActivity extends AppCompatActivity {
-
+    EditText textoEmail, textoPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +59,8 @@ public class LoginActivity extends AppCompatActivity {
         Button botonLogin = findViewById(R.id.botonLogin);
         Button botonRegister = findViewById(R.id.botonRegister);
         Button botonGoogle = findViewById(R.id.botonGoogle);
-        EditText textoEmail = findViewById(R.id.textEmail);
-        EditText textoPass = findViewById(R.id.textPassword);
+         textoEmail = findViewById(R.id.textEmail);
+         textoPass = findViewById(R.id.textPassword);
 
         botonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,9 +74,11 @@ public class LoginActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 Toast.makeText(LoginActivity.this, "Registro Correcto", Toast.LENGTH_SHORT).show();
                                 cambiarActivity(email, ProviderType.BASIC);
+                                clearAll();
                             } else {
                                 showAlert("Se produjo un error en el registro de usuario");
                             }
+
                         }
                     });
                 } else {
@@ -98,9 +100,11 @@ public class LoginActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 Toast.makeText(LoginActivity.this, "Acceso Correcto", Toast.LENGTH_SHORT).show();
                                 cambiarActivity(email, ProviderType.BASIC);
+                                clearAll();
                             } else {
                                 showAlert("Se produjo un error en inicio de sesión");
                             }
+
                         }
                     });
 
@@ -113,7 +117,7 @@ public class LoginActivity extends AppCompatActivity {
         botonGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Toast.makeText(LoginActivity.this,"Disabled Option",Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -132,6 +136,11 @@ public class LoginActivity extends AppCompatActivity {
         homeIntent.putExtra("email", email);
         homeIntent.putExtra("provider", provider.name());
         startActivity(homeIntent);
+    }
+
+    public void clearAll() {
+        textoEmail.setText("");
+        textoPass.setText("");
     }
 
 }
