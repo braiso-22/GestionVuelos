@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         try {
             cambiarActivity(account.getEmail(), ProviderType.GOOGLE);
-            Toast.makeText(LoginActivity.this, "Acceso Correcto", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, R.string.acceso_correcto, Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
 
         }
@@ -72,18 +72,18 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(LoginActivity.this, "Registro Correcto", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, R.string.registro_completo, Toast.LENGTH_SHORT).show();
                                 cambiarActivity(email, ProviderType.BASIC);
                                 clearAll();
                             } else {
-                                showAlert("Se produjo un error en el registro de usuario");
+                                showAlert(getString(R.string.problema_registro));
                             }
 
                         }
                     });
                 } else {
 
-                    showAlert("Sintaxis incorrecta del email o contraseña");
+                    showAlert(getString(R.string.sintaxis_mal));
                 }
             }
         });
@@ -98,18 +98,18 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(LoginActivity.this, "Acceso Correcto", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, R.string.acceso_correcto, Toast.LENGTH_SHORT).show();
                                 cambiarActivity(email, ProviderType.BASIC);
                                 clearAll();
                             } else {
-                                showAlert("Se produjo un error en inicio de sesión");
+                                showAlert(getString(R.string.error_inicio_sesion));
                             }
 
                         }
                     });
 
                 } else {
-                    showAlert("Sintaxis incorrecta del email o contraseña");
+                    showAlert(getString(R.string.sintaxis_mal));
                 }
             }
         });
@@ -117,7 +117,7 @@ public class LoginActivity extends AppCompatActivity {
         botonGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(LoginActivity.this,"Disabled Option",Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this,R.string.disabled,Toast.LENGTH_SHORT).show();
             }
         });
     }

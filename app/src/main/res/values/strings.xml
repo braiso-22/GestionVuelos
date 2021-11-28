@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GestionVuelos</string>
+    <string name="app_name">Flights</string>
     <string name="prefs_file">com.example.firebasetutorial.PREFERENCE_FILE_KEY</string>
 
     <string name="roundtrip">RoundTrip</string>
@@ -33,4 +33,10 @@
     <string name="leave">you can\'t leave after coming</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="registro_completo">Correct Registration</string>
+    <string name="problema_registro">An error occurred in the user registration</string>
+    <string name="sintaxis_mal">Incorrect email or password syntax</string>
+    <string name="error_inicio_sesion">Login failed</string>
+    <string name="acceso_correcto">Correct Access</string>
+    <string name="disabled">Disabled Option</string>
 </resources>
